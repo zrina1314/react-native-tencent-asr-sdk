@@ -1,12 +1,24 @@
 import * as React from 'react';
 import RNFS from 'react-native-fs';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, ToastAndroid } from 'react-native';
 import { AsrSdk } from 'react-native-tencent-asr-sdk';
-export default function App() {
-  const [result, setResult] = React.useState<string>("");
 
+/**
+ * 腾讯云ASR RN SDK 示例
+ * @returns
+ */
+export default function App() {
+  // 录音后的本地文件，默认 WAV 格式
+  const [localFile,setLocalFile] = React.useState<string>("");
+
+  // 最终的识别结果
+  const [result, setResult] = React.useState<string>("");
+  // 正在识别中的 分片结果集合
   const resultMap = React.useRef<{[key:string]:string}>({});
 
+  const [errorMsg,setErrorMsg] = React.useState<string>();
+
+  /** 将 分片识别的结果集合 组装整合 成一段话 */
   const refreshResult = React.useCallback(()=>{
       const resultLists :string[]=[];
       for (const key in resultMap.current) {
@@ -15,7 +27,7 @@ export default function App() {
           resultLists.push(element);
         }
       }
-      const text = resultLists.join("\r\n");
+      const text = resultLists.join("");
       console.log(`最终的文字`,text);
       setResult(text);
   },[]);
@@ -40,7 +52,6 @@ export default function App() {
 
       onRecognizeResult_onSuccess:(params:{result:string})=>{
         console.log(`这是页面中的监听器，onRecognizeResult_onSuccess`);
-
       },
 
       onRecognizeResult_onFailure:(params:{code:string,message:string})=>{
@@ -52,7 +63,10 @@ export default function App() {
       },
 
       onRecognizeState_onStopRecord:(params:{filePath:string,fileName:string})=>{
-        console.log(`这是页面中的监听器，onRecognizeState_onStopRecord`);
+        const {filePath,fileName} = params;
+        const tempLocalFile = filePath+"/"+fileName;
+        console.log(`这是页面中的监听器，onRecognizeState_onStopRecord,本次录音的本地文件路径为：`,tempLocalFile);
+        setLocalFile(tempLocalFile)
       },
 
       onRecognizeState_onVoiceVolume:(params:{volume:number})=>{
@@ -60,8 +74,6 @@ export default function App() {
       },
 
       onRecognizeState_onVoiceDb :(params:{volumeDb:string})=>{
-
-
         // console.log(`这是页面中的监听器，onRecognizeState_onVoiceDb`);
       },
     }
@@ -74,7 +86,6 @@ export default function App() {
     }
   }, []);
 
- const [volumeValue,setVolumeValue] =   React.useState("3");
 
   return (
     <View style={styles.container}>
@@ -90,18 +101,27 @@ export default function App() {
         const secretId = ""
         const secretKey= "";
         AsrSdk.init(appId,projectId,secretId,secretKey,savePath);
-      }}></Button>
-      <Button title='开始录音' onPress={()=>{
+      }}/>
+      <Button title='开始录音并实时转换为文字' onPress={()=>{
         AsrSdk.startRecorder();
-      }}></Button>
-       <Button title='结束录音' onPress={()=>{
+      }}/>
+      <Button title='结束录音并结束转换为文字' onPress={()=>{
         AsrSdk.stopRecorder();
-      }}></Button>
-      <TextInput  value={volumeValue} onChangeText={(text)=>setVolumeValue(text)}/>
-       <Button title='设置音量大小' onPress={()=>{
+      }}/>
+      <Button title='取消录音并放弃转换内容' onPress={()=>{
         // startRecorder();
         AsrSdk.cancelRecorder();
-      }}></Button>
+      }}/>
+      <Button title='识别现有的音频文件转文字' onPress={()=>{
+        if(localFile){
+          AsrSdk.recognizerFile(localFile,"wav").then(result=>{
+            setResult(result);
+            console.log(`本地文件识别结束`)
+          });
+        }else{
+          setErrorMsg("请先录音，录音结束后再播放");
+        }
+      }}/>
     </View>
   );
 }
