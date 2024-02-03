@@ -80,19 +80,16 @@ export default function App() {
     <View style={styles.container}>
       <Text>Result: {result}</Text>
       <Button title='init初始化' onPress={()=>{
-
-const savePath = RNFS.CachesDirectoryPath + '/chat/wav';
-if (!RNFS.exists(savePath)) {
-  RNFS.mkdir(savePath);
-}
-
-        //
-// APP ID：1258719900
-// SecretId
-// AKIDtfXPRXbxIan6Nl7OUSQMBpMxQ81nRLFQ
-// SecretKey
-// FZq5HQVlxCIcw8Om7YzgP807A5pcNUfi
-        AsrSdk.init(1258719900,0,"AKIDGcH1AVuHEIbw884qU1VybChBaAiJDJOW","CPagr9c4Z7jK1lVKB56Li6RkzGlbXXbm",savePath);
+        const savePath = RNFS.CachesDirectoryPath + '/chat/wav';
+        if (!RNFS.exists(savePath)) {
+          RNFS.mkdir(savePath);
+        }
+        // 下面的换成你自己的 Key信息
+        const appId= 0;
+        const projectId = 0;
+        const secretId = ""
+        const secretKey= "";
+        AsrSdk.init(appId,projectId,secretId,secretKey,savePath);
       }}></Button>
       <Button title='开始录音' onPress={()=>{
         AsrSdk.startRecorder();
