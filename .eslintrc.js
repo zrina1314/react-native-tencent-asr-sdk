@@ -10,13 +10,24 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  ignorePatterns: ['scripts', 'lib', 'docs', 'example', 'app.plugin.js'],
+  ignorePatterns: [
+    'scripts',
+    'lib',
+    'docs',
+    'example',
+    'app.plugin.js',
+    'commitlint.config.js',
+  ],
   plugins: ['@typescript-eslint'],
-  extends: ['plugin:@typescript-eslint/recommended', '@react-native', 'plugin:prettier/recommended'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    '@react-native',
+    'plugin:prettier/recommended',
+  ],
   rules: {
     // eslint
-    semi: 'off',
-    curly: ['warn', 'multi-or-nest', 'consistent'],
+    'semi': 'off',
+    'curly': ['warn', 'multi-or-nest', 'consistent'],
     'no-mixed-spaces-and-tabs': ['warn', 'smart-tabs'],
     'no-async-promise-executor': 'warn',
     'require-await': 'warn',
@@ -27,7 +38,8 @@ module.exports = {
       'error',
       {
         selector: 'TSEnumDeclaration',
-        message: "Enums have various disadvantages, use TypeScript's union types instead.",
+        message:
+          "Enums have various disadvantages, use TypeScript's union types instead.",
       },
     ],
     // prettier
@@ -79,11 +91,12 @@ module.exports = {
     'react-hooks/exhaustive-deps': [
       'error',
       {
-        additionalHooks: '(useDerivedValue|useAnimatedStyle|useAnimatedProps|useWorkletCallback|useFrameProcessor|useSkiaFrameProcessor)',
+        additionalHooks:
+          '(useDerivedValue|useAnimatedStyle|useAnimatedProps|useWorkletCallback|useFrameProcessor|useSkiaFrameProcessor)',
       },
     ],
   },
   env: {
     node: true,
   },
-}
+};

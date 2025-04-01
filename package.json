@@ -63,6 +63,7 @@
   },
   "homepage": "https://code.266.com/web3/GameAssetsWallet.git#readme",
   "devDependencies": {
+    "@commitlint/config-conventional": "^19.8.0",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native-community/cli": "15.0.1",
     "@react-native/eslint-config": "0.76.6",
@@ -70,6 +71,7 @@
     "@types/babel__preset-env": "^7",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.3.5",
+    "commitlint": "19.8.0",
     "del-cli": "^5.1.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "9.1.0",
@@ -81,7 +83,7 @@
     "react-native-builder-bob": "^0.35.2",
     "release-it": "^17.10.0",
     "turbo": "^1.10.7",
-    "typescript": "^5.7.2"
+    "typescript": "^5.6.0"
   },
   "resolutions": {
     "@types/react": "^18.3.5"
@@ -93,7 +95,7 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@4.5.1",
+  "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
