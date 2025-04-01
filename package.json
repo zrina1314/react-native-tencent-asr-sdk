@@ -1,6 +1,6 @@
 {
   "name": "react-native-tencent-cloud-asr-sdk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "none",
   "private": true,
   "source": "./src/index.tsx",
