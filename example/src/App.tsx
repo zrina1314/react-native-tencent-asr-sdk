@@ -112,8 +112,8 @@ export default function App() {
           AsrSdk.init(
             1304799512,
             0,
-            'AKIDc4HEwQghTzFF1c092oTu5A7sPjocARSC',
-            'VltmxymMiphMmwqWyA7tPghSVVM4XnGX',
+            '',
+            '',
             "",
           );
         }}
