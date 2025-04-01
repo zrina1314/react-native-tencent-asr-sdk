@@ -9,11 +9,11 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./lib/typescript/module/src/index.d.ts",
+        "types": "./lib/typescript/module/index.d.ts",
         "default": "./lib/module/index.js"
       },
       "require": {
-        "types": "./lib/typescript/commonjs/src/index.d.ts",
+        "types": "./lib/typescript/commonjs/index.d.ts",
         "default": "./lib/commonjs/index.js"
       }
     }
@@ -42,7 +42,7 @@
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib node_modules",
     "build": "bob build",
     "prepare": "bob build",
     "release": "bob build && release-it"
@@ -63,8 +63,6 @@
   },
   "homepage": "https://code.266.com/web3/GameAssetsWallet.git#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.26.9",
-    "@babel/preset-typescript": "^7.27.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native-community/cli": "15.0.1",
